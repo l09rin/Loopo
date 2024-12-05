@@ -2,4 +2,4 @@
 
 Toolkit to analyse and manipulate Molecular Dynamics trajectories.
 
-Documentation still missing (--help flag gives some information)
+Documentation still missing (`--help` flag gives some information)
