@@ -3,4 +3,4 @@
 Toolkit to analyse and manipulate Molecular Dynamics trajectories.
 With thread parallelization support.
 
-Documentation still missing (`--help` flag gives some information)
+`--help` flag gives usage information
