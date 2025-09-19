@@ -4,7 +4,6 @@ import random
 import molecule as molobj
 import profiles as pf
 import chains as ch
-from tiles import Tile
 import numpy as np
 from scipy.spatial import ConvexHull
 from itertools import islice
