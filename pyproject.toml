@@ -1,0 +1,28 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "loopo"
+version = "0.1.0"
+description = "Loopo: parser and analyser for Molecular Dynamics simulation output configurations"
+authors = [{ name="Giovanni Del Monte", email="giovanni.delmonte90@gmail.com" }]
+readme = "README.md"
+dependencies = [
+    "numpy",
+    "scipy",
+]
+
+[tool.setuptools]
+packages = ["loopo", "loopo_actions", "utils"]
+package-dir = {"" = "src", "utils" = "utils"}
+
+[project.optional-dependencies]
+loopo_actions = []  # separate optional deps for loopo_analysis
+utils = []  # separate optional deps for utils
+
+[project.scripts]
+loopOnTraj = "utils.loopOnTraj:main"
+msd = "utils.msd:main"
+msd-parallel = "utils.msd_parallel:main"
+generate-tsteps-cycle = "utils.generate_tsteps_cycle:main"
