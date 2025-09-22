@@ -72,7 +72,7 @@ class SURFACE_MESH( ACTION ) :
         asphericity_1 = 1.5 * (a**2+b**2+c**2)/(a+b+c)**2 - 0.5
         asphericity_2 = 0.5 * ( (l2-l1)**2 + (l3-l1)**2 + (l3-l2)**2 ) / (l1+l2+l3)**2
         self.lock.acquire()
-        self.outfile.write( str( equil_config.time ) + " " + repr(a) + " " + repr(b) + " " + repr(c) + " " + repr(Rg) + " " + repr(surface_data.attributes['ConstructSurfaceMesh.filled_volume']) + " " + repr(2.0/integral) + " " + repr(2.0/integral**2*error_int) + " " + repr(asphericity_1) + " " + repr(asphericity_2) + " " + repr(surface_data.attributes['ConstructSurfaceMesh.surface_area']) + " " + repr(surface_data.attributes['ConstructSurfaceMesh.filled_region_count']) + " " + repr(surface_data.attributes['ConstructSurfaceMesh.empty_region_count']) + "\n" )
+        self.outfile.write( str( equil_config.time ) + " " + str(a) + " " + str(b) + " " + str(c) + " " + str(Rg) + " " + str(surface_data.attributes['ConstructSurfaceMesh.filled_volume']) + " " + str(2.0/integral) + " " + str(2.0/integral**2*error_int) + " " + str(asphericity_1) + " " + str(asphericity_2) + " " + str(surface_data.attributes['ConstructSurfaceMesh.surface_area']) + " " + str(surface_data.attributes['ConstructSurfaceMesh.filled_region_count']) + " " + str(surface_data.attributes['ConstructSurfaceMesh.empty_region_count']) + "\n" )
         self.lock.release()
 
     def terminate( self ) :

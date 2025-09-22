@@ -396,7 +396,7 @@ class SHAPE_OVERLAP( ACTION ) :
             self.lock.acquire()
             logfile.write( "mol : " + str(l) + "\tvol stat : " + str(volstat) + "\tvol mesh : " + str(volmesh) + "\n" )
             logfile.flush()
-            self.molfiles[l].write( str( equil_config.time ) + " " + repr( areamesh ) + " " + repr( equil_config.molecules[l].properties["S_p"] ) + " " + repr( equil_config.molecules[l].properties["interpenetrated_frac"] ) + " " + repr( volmesh ) + "\n" )
+            self.molfiles[l].write( str( equil_config.time ) + " " + str( areamesh ) + " " + str( equil_config.molecules[l].properties["S_p"] ) + " " + str( equil_config.molecules[l].properties["interpenetrated_frac"] ) + " " + str( volmesh ) + "\n" )
             if self.DUMP_MESHES :
                 if self.method == "smesh" :
                     dump_mesh( self.mesh_from_AlphaSurface( equil_config.molecules[l].properties["AlphaSurface"].surfaces['surface'] ) , "mesh_"+str(l) )
@@ -424,9 +424,9 @@ class SHAPE_OVERLAP( ACTION ) :
         interp_vol_frac = tot_overlap_vol / tot_mgels_vol
 
         self.lock.acquire()
-        logfile.write( str( tot_overlap_vol ) + " " + repr( tot_mgels_vol ) + " " + repr( interp_vol_frac ) + " " + repr( avg_interp_monom_frac ) + " " + repr( np.multiply.reduce( equil_config.box_sup - equil_config.box_inf ) ) + "\n" )
+        logfile.write( str( tot_overlap_vol ) + " " + str( tot_mgels_vol ) + " " + str( interp_vol_frac ) + " " + str( avg_interp_monom_frac ) + " " + str( np.multiply.reduce( equil_config.box_sup - equil_config.box_inf ) ) + "\n" )
         logfile.flush()
-        self.outfile.write( str( equil_config.time ) + " " + repr( avg_surf ) + " " + repr( avg_Sp ) + " " + repr( avg_vol ) + " " + repr( interp_vol_frac ) + " " + repr( avg_interp_monom_frac ) + " " + repr( tot_mgels_vol ) + "\n" )
+        self.outfile.write( str( equil_config.time ) + " " + str( avg_surf ) + " " + str( avg_Sp ) + " " + str( avg_vol ) + " " + str( interp_vol_frac ) + " " + str( avg_interp_monom_frac ) + " " + str( tot_mgels_vol ) + "\n" )
         self.lock.release()
         logfile.close()
 

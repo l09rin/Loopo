@@ -130,18 +130,18 @@ class PROFILE( ACTION ) :
             self.PROFILES.append( actual_profile )
             self.PERCONF_file.write( str( equil_config.time ) + '\t' + str( self.PROFILES[-1].Nbins ) + '\t' + str( self.PROFILES[-1].total_count() ) + '\n' )
             for i in range( self.PROFILES[-1].Nbins ) :
-                self.PERCONF_file.write( str( i+1 ) + '\t' + repr( 0.5*(self.PROFILES[-1].rmin[i]+self.PROFILES[-1].rmax[i]) ) + '\t' + repr( self.PROFILES[-1].counts[i] ) + '\t' + str( self.PROFILES[-1].dens[i] ) + '\n' )
+                self.PERCONF_file.write( str( i+1 ) + '\t' + str( 0.5*(self.PROFILES[-1].rmin[i]+self.PROFILES[-1].rmax[i]) ) + '\t' + str( self.PROFILES[-1].counts[i] ) + '\t' + str( self.PROFILES[-1].dens[i] ) + '\n' )
         elif self.PROFILE_TYPE == "cylinder" :
              self.PROFILES.append( actual_profile )
              self.PERCONF_file.write( str( equil_config.time ) + '\t' + str( self.PROFILES[-1].Nrbins*(2*self.PROFILES[-1].lastHbin+1) ) + '\t' + str( self.PROFILES[-1].total_count() ) + '\n' )
              for j in range( self.PROFILES[-1].Nrbins ) :
                  for i in range( -self.PROFILES[-1].lastHbin , self.PROFILES[-1].lastHbin+1 ) :
-                    self.PERCONF_file.write( str( (i+self.PROFILES[-1].lastHbin)+1+j*(2*self.PROFILES[-1].lastHbin+1) ) + '\t' + repr( 0.5*(self.PROFILES[-1].hmin[i]+self.PROFILES[-1].hmax[i]) ) + '\t' + repr( 0.5*(self.PROFILES[-1].rmin[j]+self.PROFILES[-1].rmax[j]) ) + '\t' + repr( self.PROFILES[-1].counts[i][j] ) + '\t' + str( self.PROFILES[-1].dens[i][j] ) + '\n' )
+                    self.PERCONF_file.write( str( (i+self.PROFILES[-1].lastHbin)+1+j*(2*self.PROFILES[-1].lastHbin+1) ) + '\t' + str( 0.5*(self.PROFILES[-1].hmin[i]+self.PROFILES[-1].hmax[i]) ) + '\t' + str( 0.5*(self.PROFILES[-1].rmin[j]+self.PROFILES[-1].rmax[j]) ) + '\t' + str( self.PROFILES[-1].counts[i][j] ) + '\t' + str( self.PROFILES[-1].dens[i][j] ) + '\n' )
         elif self.PROFILE_TYPE == "linear" :
             self.PROFILES.append( actual_profile )
             self.PERCONF_file.write( str( equil_config.time ) + '\t' + str( self.PROFILES[-1].Nbins ) + '\t' + str( self.PROFILES[-1].total_count() ) + '\n' )
             for i in range( self.PROFILES[-1].Nbins ) :
-                self.PERCONF_file.write( str( i+1 ) + '\t' + repr( 0.5*(self.PROFILES[-1].hmin[i]+self.PROFILES[-1].hmax[i]) ) + '\t' + repr( self.PROFILES[-1].counts[i] ) + '\t' + str( self.PROFILES[-1].dens[i] ) + '\n' )
+                self.PERCONF_file.write( str( i+1 ) + '\t' + str( 0.5*(self.PROFILES[-1].hmin[i]+self.PROFILES[-1].hmax[i]) ) + '\t' + str( self.PROFILES[-1].counts[i] ) + '\t' + str( self.PROFILES[-1].dens[i] ) + '\n' )
         self.PERCONF_file.flush()
         self.lock.release()
 
@@ -188,7 +188,7 @@ class PROFILE( ACTION ) :
                         avg_prof.dens[i] += profile.dens[i] / N
             self.AVG_file.write( str( self.last_step-self.first_step ) + '\t' + str( avg_prof.Nbins ) + '\t' + str( avg_prof.total_count() ) + '\n' )
             for i in range( avg_prof.Nbins ) :
-                self.AVG_file.write( str( i+1 ) + '\t' + repr( midpoint[i] ) + '\t' + repr( avg_prof.counts[i] ) + '\t' + repr( avg_prof.dens[i] ) + '\n' )
+                self.AVG_file.write( str( i+1 ) + '\t' + str( midpoint[i] ) + '\t' + str( avg_prof.counts[i] ) + '\t' + str( avg_prof.dens[i] ) + '\n' )
             self.AVG_file.close()
             if self.VARIANCE :
                 profile_variance = pf.density_profile( self.RADIAL_BIN , self.last_box )
@@ -197,7 +197,7 @@ class PROFILE( ACTION ) :
                     for i in range( profile.Nbins ) :
                         profile_variance.dens[i] += ( profile.dens[i] - avg_prof.dens[i] )**2 / N
                 for i in range( avg_prof.Nbins ) :
-                    self.VARIANCE_file.write( str( i+1 ) + '\t' + repr( midpoint[i] ) + '\t' + repr( avg_prof.dens[i] ) + '\t' + repr( np.sqrt(profile_variance.dens[i]) ) + '\n' )
+                    self.VARIANCE_file.write( str( i+1 ) + '\t' + str( midpoint[i] ) + '\t' + str( avg_prof.dens[i] ) + '\t' + str( np.sqrt(profile_variance.dens[i]) ) + '\n' )
                 self.VARIANCE_file.close()
 
         elif self.PROFILE_TYPE == "cylinder" :
@@ -224,8 +224,8 @@ class PROFILE( ACTION ) :
             self.AVG_file.write( str( self.last_step-self.first_step ) + '\t' + str( len(hmidpoint)*len(rmidpoint) ) + '\t' + str( avg_prof.total_count() ) + '\n' )
             for j in range( len(rmidpoint) ) :
                 for i in range( len(hmidpoint) ) :
-                    ii = i - ( ( len(hmidpoint) - 1 ) / 2 )
-                    self.AVG_file.write( str( i+1+j*len(hmidpoint) ) + '\t' + repr( hmidpoint[ii] ) + '\t' + repr( rmidpoint[j] ) + '\t' + repr( avg_prof.counts[ii][j] ) + '\t' + repr( avg_prof.dens[ii][j] ) + '\n' )
+                    ii = int(i - ( ( len(hmidpoint) - 1 ) / 2 ))
+                    self.AVG_file.write( str( i+1+j*len(hmidpoint) ) + '\t' + str( hmidpoint[ii] ) + '\t' + str( rmidpoint[j] ) + '\t' + str( avg_prof.counts[ii][j] ) + '\t' + str( avg_prof.dens[ii][j] ) + '\n' )
             self.AVG_file.close()
             if self.VARIANCE :
                 profile_variance = pf.cylindrical_profile( self.last_box , self.CYLINDER_AXIS , self.RADIAL_BIN , self.HEIGHT_BIN )
@@ -237,7 +237,7 @@ class PROFILE( ACTION ) :
                 for j in range( len(rmidpoint) ) :
                     for i in range( len(hmidpoint) ) :
                         ii = i - ( ( len(hmidpoint) - 1 ) / 2 )
-                        self.VARIANCE_file.write( str( i+1+j*len(hmidpoint) ) + '\t' + repr( hmidpoint[ii] ) + '\t' + repr( rmidpoint[j] ) + '\t' + repr( avg_prof.dens[ii][j] ) + '\t' + repr( np.sqrt(profile_variance.dens[ii][j]) ) + '\n' )
+                        self.VARIANCE_file.write( str( i+1+j*len(hmidpoint) ) + '\t' + str( hmidpoint[ii] ) + '\t' + str( rmidpoint[j] ) + '\t' + str( avg_prof.dens[ii][j] ) + '\t' + str( np.sqrt(profile_variance.dens[ii][j]) ) + '\n' )
                 self.VARIANCE_file.close()
 
         elif self.PROFILE_TYPE == "linear" :
@@ -266,7 +266,7 @@ class PROFILE( ACTION ) :
                         avg_prof.dens[i] += profile.dens[i] / N
             self.AVG_file.write( str( self.last_step-self.first_step ) + '\t' + str( avg_prof.Nbins ) + '\t' + str( avg_prof.total_count() ) + '\n' )
             for i in range( avg_prof.Nbins ) :
-                self.AVG_file.write( str( i+1 ) + '\t' + repr( midpoint[i] ) + '\t' + repr( avg_prof.counts[i] ) + '\t' + repr( avg_prof.dens[i] ) + '\n' )
+                self.AVG_file.write( str( i+1 ) + '\t' + str( midpoint[i] ) + '\t' + str( avg_prof.counts[i] ) + '\t' + str( avg_prof.dens[i] ) + '\n' )
             self.AVG_file.close()
             if self.VARIANCE :
                 profile_variance = pf.linear_profile( self.last_box , self.CYLINDER_AXIS , self.HEIGHT_BIN )
@@ -275,7 +275,7 @@ class PROFILE( ACTION ) :
                     for i in range( profile.Nbins ) :
                         profile_variance.dens[i] += ( profile.dens[i] - avg_prof.dens[i] )**2 / N
                 for i in range( avg_prof.Nbins ) :
-                    self.VARIANCE_file.write( str( i+1 ) + '\t' + repr( midpoint[i] ) + '\t' + repr( avg_prof.dens[i] ) + '\t' + repr( np.sqrt(profile_variance.dens[i]) ) + '\n' )
+                    self.VARIANCE_file.write( str( i+1 ) + '\t' + str( midpoint[i] ) + '\t' + str( avg_prof.dens[i] ) + '\t' + str( np.sqrt(profile_variance.dens[i]) ) + '\n' )
                 self.VARIANCE_file.close()
 
     def return_values( self ) :

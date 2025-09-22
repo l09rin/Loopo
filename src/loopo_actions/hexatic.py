@@ -123,10 +123,10 @@ class HEXATIC( ACTION ) :
                 avgd_op_values[i] = avgd_op_values[i][ equil_config.mol == self.VALUE ]
         print_values = ""
         for val in np.mean( np.abs(op_values), axis=1 ) :
-            print_values += (" "+repr(val))
+            print_values += (" "+str(val))
         print_values_avgd = ""
         for val in np.mean( np.abs(avgd_op_values), axis=1 ) :
-            print_values_avgd += (" "+repr(val))
+            print_values_avgd += (" "+str(val))
         self.lock.acquire()
         self.FILE.write(  str( equil_config.time ) + print_values + "\n"  )
         self.AVGD_FILE.write(  str( equil_config.time ) + print_values_avgd + "\n"  )
