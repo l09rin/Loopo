@@ -61,7 +61,7 @@ def main() :
                 fileslist.close()
                 file_names = [ line.strip().split()[0] for line in lof ]
                 j = 3
-            if sys.argv[i+j].strip() == "single" :
+            elif sys.argv[i+j].strip() == "single" :
                 SINGLE_CONF_FILES = True
                 file_names = []
                 for fnames in sys.argv[i+j+1].strip().split() :
